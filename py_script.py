@@ -19,9 +19,9 @@ with open(event_path) as file:
   
 print(f"JSON OBJ: {json_obj}")
   
-print(json_obj["labels"])
-print(json_obj["requested_reviewers"])
-print(json_obj["body"])
+print(json_obj["pull_request"]["labels"])
+print(json_obj["pull_request"]["requested_reviewers"])
+print(json_obj["pull_request"]["body"])
 
 print("Hello world")
 
