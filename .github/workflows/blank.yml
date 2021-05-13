@@ -38,3 +38,6 @@ jobs:
       - name: Run user defined script
         run: |
           sh ./test_script.sh
+          
+      - name: Print github event
+        run: echo ${{ github.event }}
