@@ -38,7 +38,7 @@ jobs:
           sh ./test_script.sh
           
       - name: Setup Python
-        run: actions/setup-python@v2
+        uses: actions/setup-python@v2
       
       - name: Check version
         run: python -v
