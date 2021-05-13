@@ -17,6 +17,7 @@ with open(event_path) as file:
   
 print(json_obj["labels"])
 print(json_obj["requested_reviewers"])
+print(json_obj["body"])
 
 print("Hello world")
 
