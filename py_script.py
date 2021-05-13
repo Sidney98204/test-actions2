@@ -14,7 +14,10 @@ if not os.path.isfile(event_path):
 
 with open(event_path) as file:
   file_contents = file.read()
+  print("FILE CONTENTS: " + file_contents)
   json_obj = json.loads(file_contents)
+  
+print(f"JSON OBJ: {json_obj}")
   
 print(json_obj["labels"])
 print(json_obj["requested_reviewers"])
