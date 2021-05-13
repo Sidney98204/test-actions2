@@ -41,6 +41,4 @@ jobs:
           
       - name: Print github event
         run: echo ${{ github.event.push }}
-        
-      - name: Print github event
-        run: echo ${{ github.event.pull_request }}
+      
