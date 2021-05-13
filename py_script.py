@@ -3,8 +3,9 @@ import json
 import sys
 import os
 
-if len(sys.argv) != 2:
-  raise Exception("Wrong num cmd args")
+print(sys.argv)
+# if len(sys.argv) != 2:
+#   raise Exception("Wrong num cmd args")
   
 event_path = sys.argv[1]
 
