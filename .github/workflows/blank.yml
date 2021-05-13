@@ -37,6 +37,16 @@ jobs:
         run: |
           sh ./test_script.sh
           
+      - name: Setup Python
+        run: actions/setup-python@v2
+      
+      - name: Check version
+        run: python -v
+        
+      - name: Run Python Script
+        run: |
+          python py_script.py
+          
       - name: Print github event
         run: cat $GITHUB_EVENT_PATH
       
