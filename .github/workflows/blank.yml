@@ -38,11 +38,9 @@ jobs:
       - name: Run user defined script
         run: |
           sh ./test_script.sh
-          
-      - name: Print github event
-        run: echo ${{ github.event.push }}
+    
         
                   
       - name: Print github event
-        run: echo $GITHUB_EVENT_PATH
+        run: cat $GITHUB_EVENT_PATH
       
