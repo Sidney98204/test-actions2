@@ -20,9 +20,12 @@ with open(event_path) as file:
   
 # print(f"JSON OBJ: {json_obj}")
   
-print(f'LABELS: {json_obj["pull_request"]["labels"]}')
-print(f'REQUESTED REVIEWS: {json_obj["pull_request"]["requested_reviewers"]}')
-print(f'BODY: {json_obj["pull_request"]["body"]}')
+labels = json_obj["pull_request"]["labels"]
+reviewers = json_obj["pull_request"]["requested_reviewers"]
+body = json_obj["pull_request"]["body"]
+print(f'LABELS: {labels}')
+print(f'REQUESTED REVIEWS: {reviewers}')
+print(f'BODY: {body}')
 
 url = "https://sids-test-env.atlassian.net/rest/api/3/issue"
 
