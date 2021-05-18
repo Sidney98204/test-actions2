@@ -47,11 +47,13 @@ jobs:
       
       - name: Check version
         run: python -v
+      
+      - name: Print github event
+        run: cat $GITHUB_EVENT_PATH
         
       - name: Run Python Script
         run: |
           python py_script.py $GITHUB_EVENT_PATH
           
-      - name: Print github event
-        run: cat $GITHUB_EVENT_PATH
+
       
