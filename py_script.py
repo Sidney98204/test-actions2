@@ -22,7 +22,7 @@ pr_body = event_obj["pull_request"]["body"]
 if len(reviewers) == 0:
     raise Exception("No reviewers were assigned")
 
-reviewer = reviewers[0]
+reviewer = reviewers[0]["login"]
 with open("reviewers_to_teams.json") as file:
     reviewers_to_teams = json.loads(file.read())
 project_key = reviewers_to_teams[reviewer]
