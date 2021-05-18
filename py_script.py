@@ -24,7 +24,7 @@ if len(reviewers) == 0:
 
 reviewer = reviewers[0]
 with open("reviewers_to_teams.json") as file:
-    reviewers_to_teams = json.load(file)
+    reviewers_to_teams = json.loads(file.read())
 project_key = reviewers_to_teams[reviewer]
 
 ## TODO: Put this in a secure place
