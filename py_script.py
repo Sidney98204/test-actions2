@@ -23,9 +23,11 @@ if len(reviewers) == 0:
     raise Exception("No reviewers were assigned")
 
 reviewer = reviewers[0]["login"]
-with open("reviewers_to_teams.json") as file:
-    reviewers_to_teams = json.loads(file.read())
-project_key = reviewers_to_teams[reviewer]
+with open("reviewers-jira-info.json") as file:
+    reviewers_jira_info = json.loads(file.read())
+reviewer_jira_info = reviewers_jira_info[reviewer]
+project_key = reviewer_jira_info["project_key"]
+jira_id = reviewer_jira_info["jira_id"]
 
 ## TODO: Put this in a secure place
 auth = HTTPBasicAuth("sidneys.throwaway.email98@gmail.com", "o5ZBIy13CgO4ondBUHcCC89C")
@@ -64,10 +66,10 @@ request_body = {
           "name": "Task"
        },
        "assignee": {
-          "id": "609d447f2009f100683db99d" ## TODO: Grab everyone's account IDs
+          "id": jira_id
        },
        "reporter": {
-          "id": "5ffce992692b7901104ce6da"
+          "id": jira_id
        },
        "priority": {
           "name": "Low"
