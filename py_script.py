@@ -19,6 +19,15 @@ with open(event_path) as file:
 reviewers = event_obj["pull_request"]["requested_reviewers"]
 pr_body = event_obj["pull_request"]["body"]
 
+if len(reviewers) == 0:
+    raise Exception("No reviewers were assigned")
+
+reviewer = reviewers[0]
+with open("reviewers_to_teams.json") as file:
+    reviewers_to_teams = json.load(file)
+project_key = reviewers_to_teams[reviewer]
+
+## TODO: Put this in a secure place
 auth = HTTPBasicAuth("sidneys.throwaway.email98@gmail.com", "o5ZBIy13CgO4ondBUHcCC89C")
 BASE_URL = "https://sids-test-env.atlassian.net"
 
@@ -32,7 +41,7 @@ request_body = {
     "fields": {
        "project":
        {
-          "key": "GA"
+          "key": project_key
        },
        "summary": pr_body,
        "description": {
@@ -55,7 +64,7 @@ request_body = {
           "name": "Task"
        },
        "assignee": {
-          "id": "609d447f2009f100683db99d"
+          "id": "609d447f2009f100683db99d" ## TODO: Grab everyone's account IDs
        },
        "reporter": {
           "id": "5ffce992692b7901104ce6da"
@@ -99,7 +108,7 @@ if triage_id:
 
    response = requests.request(
      "POST",
-     transitions,
+     transitions_url,
      auth=auth,
      json=update_json
    )
