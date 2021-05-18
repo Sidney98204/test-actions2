@@ -6,30 +6,23 @@ import os
 
 print(sys.argv)
 if len(sys.argv) != 2:
-  raise Exception("Wrong num cmd args")
+  raise Exception("Wrong number of cmd args")
   
 event_path = sys.argv[1]
-
 if not os.path.isfile(event_path):
-  raise Exception("Couldn't find file")
+  raise Exception("Couldn't find github event file")
 
 with open(event_path) as file:
   file_contents = file.read()
-#   print("FILE CONTENTS: " + file_contents)
-  json_obj = json.loads(file_contents)
-  
-# print(f"JSON OBJ: {json_obj}")
-  
-labels = json_obj["pull_request"]["labels"]
-reviewers = json_obj["pull_request"]["requested_reviewers"]
-body = json_obj["pull_request"]["body"]
-print(f'LABELS: {labels}')
-print(f'REQUESTED REVIEWS: {reviewers}')
-print(f'BODY: {body}')
+  event_obj = json.loads(file_contents)
 
-url = "https://sids-test-env.atlassian.net/rest/api/3/issue"
+reviewers = event_obj["pull_request"]["requested_reviewers"]
+pr_body = event_obj["pull_request"]["body"]
 
 auth = HTTPBasicAuth("sidneys.throwaway.email98@gmail.com", "o5ZBIy13CgO4ondBUHcCC89C")
+BASE_URL = "https://sids-test-env.atlassian.net"
+
+issue_url = BASE_URL + "/rest/api/3/issue"
 
 headers = {
    "Accept": "application/json"
@@ -41,7 +34,7 @@ request_body = {
        {
           "key": "GA"
        },
-       "summary": "REST ye merry gentlemen.",
+       "summary": pr_body,
        "description": {
            "type": "doc",
            "version": 1,
@@ -51,7 +44,7 @@ request_body = {
                    "content": [
                        {
                            "type": "text",
-                           "text": "THIS IS A TEST ISSUE CREATED THRU JIRA API"
+                           "text": pr_body
                        }
                    ]
                }
@@ -59,17 +52,56 @@ request_body = {
        }
        ,
        "issuetype": {
-          "name": "Story"
+          "name": "Task"
+       },
+       "assignee": {
+          "id": "609d447f2009f100683db99d"
+       },
+       "reporter": {
+          "id": "5ffce992692b7901104ce6da"
+       },
+       "priority": {
+          "name": "Low"
        }
    }
 }
 
 response = requests.request(
    "POST",
-   url,
+   issue_url,
    headers=headers,
    auth=auth,
    json=request_body
 )
 
-print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+issue_key = json.loads(response.text)["key"]
+
+transitions_url = BASE_URL + f"/rest/api/3/issue/{issue_key}/transitions"
+
+response = requests.request(
+   "GET",
+   transitions_url,
+   auth=auth,
+)
+
+transitions_response = json.loads(response.text)
+transitions = transitions_response["transitions"]
+for transition in transitions:
+   if transition["name"] == "Triage":
+      triage_id = transition["id"]
+
+if triage_id:
+   update_json = {
+      "transition": {
+         "id": triage_id
+      }
+   }
+
+   response = requests.request(
+     "POST",
+     transitions,
+     auth=auth,
+     json=update_json
+   )
+else: 
+  print("Triage was not found in transitions, doing nothing")
