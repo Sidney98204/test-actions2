@@ -85,6 +85,7 @@ response = requests.request(
    json=request_body
 )
 
+print(response.text)
 issue_key = json.loads(response.text)["key"]
 
 transitions_url = BASE_URL + f"/rest/api/3/issue/{issue_key}/transitions"
