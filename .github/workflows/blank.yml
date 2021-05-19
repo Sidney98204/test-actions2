@@ -24,32 +24,18 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-          
-      - name: Run user defined script
-        run: |
-          sh ./test_script.sh
+      
+      - run: |
+          JIRA_API_TOKEN=${{secret.JIRA_API_TOKEN}}
+          JIRA_API_EMAIL=${{secret.JIRA_API_EMAIL}}
+          echo $JIRA_API_TOKEN
+          echo $JIRA_API_EMAIL
           
       - name: Setup Python
         uses: actions/setup-python@v2
         
       - name: install requests
         run: pip install requests
-      
-      - name: Check version
-        run: python -v
-        
-      - name: Print github event
-        run: cat $GITHUB_EVENT_PATH
         
       - name: Run Python Script
         run: |
