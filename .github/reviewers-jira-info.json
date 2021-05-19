@@ -1,0 +1,34 @@
+{
+    "reynaldot": {
+        "project_key": "CT",
+        "jira_id": "5d38e6c09761bd0c48ee9513"
+    },
+    "fergusmcdonald": {
+        "project_key": "SY",
+        "jira_id": "5bd7aa4d42830350dca41379"
+    },
+    "ilyaulyanov": {
+        "project_key": "PLAT",
+        "jira_id": "557058:90f96b7d-cd63-48ff-bc0c-130f86174497"
+    },
+    "alexcheuk": {
+        "project_key": "NUKE",
+        "jira_id": "557058:eb654aa5-23e2-4f51-aa77-6a89d1eff87e"
+    },
+    "shermanhui": {
+        "project_key": "DTO",
+        "jira_id": "5af352adb013132e70fe6d28"
+    },
+    "clara-tsang": {
+        "project_key": "NUKE",
+        "jira_id": "5d8133b9f9e2770c340ff5c3"
+    },
+    "osanna-hui": {
+        "project_key": "NUKE",
+        "jira_id": "5fc1670daa1d30006f2a63ba"
+    },
+    "Sidney98204": {
+        "project_key": "GA",
+        "jira_id": "6089c9e5308e2d0068311478"
+    }
+}
