@@ -28,8 +28,6 @@ jobs:
       - run: |
           JIRA_API_TOKEN=${{secrets.JIRA_API_TOKEN}}
           JIRA_API_EMAIL=${{secrets.JIRA_API_EMAIL}}
-          echo $JIRA_API_TOKEN
-          echo $JIRA_API_EMAIL
           
       - name: Setup Python
         uses: actions/setup-python@v2
@@ -39,6 +37,6 @@ jobs:
         
       - name: Run Python Script
         run: |
-          python py_script.py $GITHUB_EVENT_PATH
+          python py_script.py $GITHUB_EVENT_PATH $JIRA_API_EMAIL $JIRA_API_TOKEN
 
       
