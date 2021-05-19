@@ -3,15 +3,22 @@ from requests.auth import HTTPBasicAuth
 import json
 import sys
 import os
+import argparse
 
-print(sys.argv)
-if len(sys.argv) != 4:
-  raise Exception("Wrong number of cmd args")
+print(os.getcwd())
+print(os.listdir())
 
-JIRA_API_EMAIL=sys.argv[2]
-JIRA_API_TOKEN=sys.argv[3]
+parser = argparse.ArgumentParser()
+parser.add_argument("-u", "--username", required=True)
+parser.add_argument("-p", "--password", required=True)
+parser.add_argument("-e", "--event", required=True)
+
+io_args = parser.parse_args()
+JIRA_API_EMAIL = io_args.username
+JIRA_API_TOKEN = io_args.password
+event_path = io_args.event
+
 print(f"{len(JIRA_API_EMAIL)} and {len(JIRA_API_TOKEN)}")
-event_path = sys.argv[1]
 if not os.path.isfile(event_path):
   raise Exception("Couldn't find github event file")
 
@@ -32,9 +39,7 @@ reviewer_jira_info = reviewers_jira_info[reviewer]
 project_key = reviewer_jira_info["project_key"]
 jira_id = reviewer_jira_info["jira_id"]
 
-## TODO: Put this in a secure place
 auth = HTTPBasicAuth(JIRA_API_EMAIL, JIRA_API_TOKEN)
-# auth = HTTPBasicAuth("sidneys.throwaway.email98@gmail.com", "o5ZBIy13CgO4ondBUHcCC89C")
 BASE_URL = "https://sids-test-env.atlassian.net"
 
 issue_url = BASE_URL + "/rest/api/3/issue"
