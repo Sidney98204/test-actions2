@@ -26,8 +26,8 @@ jobs:
       - uses: actions/checkout@v2
       
       - run: |
-          JIRA_API_TOKEN=${{secret.JIRA_API_TOKEN}}
-          JIRA_API_EMAIL=${{secret.JIRA_API_EMAIL}}
+          JIRA_API_TOKEN=${{secrets.JIRA_API_TOKEN}}
+          JIRA_API_EMAIL=${{secrets.JIRA_API_EMAIL}}
           echo $JIRA_API_TOKEN
           echo $JIRA_API_EMAIL
           
