@@ -5,9 +5,11 @@ import sys
 import os
 
 print(sys.argv)
-if len(sys.argv) != 2:
+if len(sys.argv) != 4:
   raise Exception("Wrong number of cmd args")
-  
+
+JIRA_API_EMAIL=sys.argv[2]
+JIRA_API_TOKEN=sys.argv[3]
 event_path = sys.argv[1]
 if not os.path.isfile(event_path):
   raise Exception("Couldn't find github event file")
@@ -30,7 +32,7 @@ project_key = reviewer_jira_info["project_key"]
 jira_id = reviewer_jira_info["jira_id"]
 
 ## TODO: Put this in a secure place
-auth = HTTPBasicAuth("sidneys.throwaway.email98@gmail.com", "o5ZBIy13CgO4ondBUHcCC89C")
+auth = HTTPBasicAuth(JIRA_API_EMAIL, JIRA_API_TOKEN)
 BASE_URL = "https://sids-test-env.atlassian.net"
 
 issue_url = BASE_URL + "/rest/api/3/issue"
