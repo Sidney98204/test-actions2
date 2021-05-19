@@ -10,7 +10,7 @@ if len(sys.argv) != 4:
 
 JIRA_API_EMAIL=sys.argv[2]
 JIRA_API_TOKEN=sys.argv[3]
-print(f"{len(JIRA_API_EMAIL)} and {len(JIRA_API_TOKEN}")
+print(f"{len(JIRA_API_EMAIL)} and {len(JIRA_API_TOKEN)}")
 event_path = sys.argv[1]
 if not os.path.isfile(event_path):
   raise Exception("Couldn't find github event file")
