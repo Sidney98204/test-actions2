@@ -10,6 +10,7 @@ if len(sys.argv) != 4:
 
 JIRA_API_EMAIL=sys.argv[2]
 JIRA_API_TOKEN=sys.argv[3]
+print(f"{len(JIRA_API_EMAIL)} and {len(JIRA_API_TOKEN}")
 event_path = sys.argv[1]
 if not os.path.isfile(event_path):
   raise Exception("Couldn't find github event file")
@@ -32,7 +33,8 @@ project_key = reviewer_jira_info["project_key"]
 jira_id = reviewer_jira_info["jira_id"]
 
 ## TODO: Put this in a secure place
-auth = HTTPBasicAuth(JIRA_API_EMAIL, JIRA_API_TOKEN)
+# auth = HTTPBasicAuth(JIRA_API_EMAIL, JIRA_API_TOKEN)
+auth = HTTPBasicAuth("sidneys.throwaway.email98@gmail.com", "o5ZBIy13CgO4ondBUHcCC89C")
 BASE_URL = "https://sids-test-env.atlassian.net"
 
 issue_url = BASE_URL + "/rest/api/3/issue"
