@@ -30,7 +30,7 @@ reviewers = event_obj["pull_request"]["requested_reviewers"]
 pr_body = event_obj["pull_request"]["body"]
 pr_number = event_obj["pull_request"]["number"]
 
-jira_description = f"https://github.com/Sidney98204/test-actions2/pull/{pr_number} \n {pr_body}"
+jira_description = f"https://github.com/Sidney98204/test-actions2/pull/{pr_number}\n{pr_body}"
 
 if len(reviewers) == 0:
     raise Exception("No reviewers were assigned")
