@@ -28,6 +28,7 @@ with open(event_path) as file:
 
 reviewers = event_obj["pull_request"]["requested_reviewers"]
 pr_body = event_obj["pull_request"]["body"]
+pr_num = event_obj["pull_request"]["number"]
 
 if len(reviewers) == 0:
     raise Exception("No reviewers were assigned")
@@ -38,6 +39,8 @@ with open("reviewers-jira-info.json") as file:
 reviewer_jira_info = reviewers_jira_info[reviewer]
 project_key = reviewer_jira_info["project_key"]
 jira_id = reviewer_jira_info["jira_id"]
+
+jira_description = f"https://github.com/Sidney98204/test-actions2/pull/{pr_number} \n {pr_body}"
 
 auth = HTTPBasicAuth(JIRA_API_EMAIL, JIRA_API_TOKEN)
 BASE_URL = "https://sids-test-env.atlassian.net"
@@ -64,7 +67,7 @@ request_body = {
                    "content": [
                        {
                            "type": "text",
-                           "text": pr_body
+                           "text": jira_description
                        }
                    ]
                }
