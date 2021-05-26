@@ -36,7 +36,7 @@ if len(reviewers) == 0:
     raise Exception("No reviewers were assigned")
 
 reviewer = reviewers[0]["login"]
-with open("reviewers-jira-info.json") as file:
+with open(".github/reviewers-jira-info.json") as file:
     reviewers_jira_info = json.loads(file.read())
 reviewer_jira_info = reviewers_jira_info[reviewer]
 project_key = reviewer_jira_info["project_key"]
