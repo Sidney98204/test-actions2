@@ -23,7 +23,7 @@ with open(event_path) as file:
   event_obj = json.loads(file_contents)
 
 reviewers = event_obj["pull_request"]["requested_reviewers"]
-pr_body = event_obj["pull_request"]["body"]
+pr_body = event_obj["pull_request"]["title"]
 pr_number = event_obj["pull_request"]["number"]
 
 pr_url = f"https://github.com/Sidney98204/test-actions2/pull/{pr_number}"
