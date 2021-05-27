@@ -23,11 +23,12 @@ with open(event_path) as file:
   event_obj = json.loads(file_contents)
 
 reviewers = event_obj["pull_request"]["requested_reviewers"]
-pr_body = event_obj["pull_request"]["title"]
+pr_title = event_obj["pull_request"]["title"]
 pr_number = event_obj["pull_request"]["number"]
 
 pr_url = f"https://github.com/Sidney98204/test-actions2/pull/{pr_number}"
-jira_description = f"{pr_url}\n{pr_body}"
+jira_title = f"Review dependency pull request: {pr_title}"
+jira_description = f"{pr_url}\n{pr_title}"
 
 if len(reviewers) == 0:
     raise Exception("No reviewers were assigned")
@@ -72,7 +73,7 @@ if searched_issues["total"] == 0:
          {
             "key": project_key
          },
-         "summary": pr_body,
+         "summary": pr_title,
          "description": {
             "type": "doc",
             "version": 1,
