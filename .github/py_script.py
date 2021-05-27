@@ -73,7 +73,7 @@ if searched_issues["total"] == 0:
          {
             "key": project_key
          },
-         "summary": pr_title,
+         "summary": jira_title,
          "description": {
             "type": "doc",
             "version": 1,
