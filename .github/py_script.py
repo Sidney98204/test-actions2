@@ -46,7 +46,7 @@ BASE_URL = "https://sids-test-env.atlassian.net"
 search_issue_url = BASE_URL + "/rest/api/3/search"
 
 params = {
-   "jql": f'project={project_key}+AND+description+~+"{pr_url}"'
+   "jql": f'project={project_key} AND description ~ "{pr_url}"'
 }
 
 response = requests.request(
