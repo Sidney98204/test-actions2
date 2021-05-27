@@ -5,9 +5,6 @@ import sys
 import os
 import argparse
 
-print(os.getcwd())
-print(os.listdir())
-
 parser = argparse.ArgumentParser()
 parser.add_argument("-u", "--username", required=True)
 parser.add_argument("-p", "--password", required=True)
@@ -18,7 +15,6 @@ JIRA_API_EMAIL = io_args.username
 JIRA_API_TOKEN = io_args.password
 event_path = io_args.event
 
-print(f"{len(JIRA_API_EMAIL)} and {len(JIRA_API_TOKEN)}")
 if not os.path.isfile(event_path):
   raise Exception("Couldn't find github event file")
 
@@ -30,7 +26,8 @@ reviewers = event_obj["pull_request"]["requested_reviewers"]
 pr_body = event_obj["pull_request"]["body"]
 pr_number = event_obj["pull_request"]["number"]
 
-jira_description = f"https://github.com/Sidney98204/test-actions2/pull/{pr_number}\n{pr_body}"
+pr_url = f"https://github.com/Sidney98204/test-actions2/pull/{pr_number}"
+jira_description = f"{pr_url}\n{pr_body}"
 
 if len(reviewers) == 0:
     raise Exception("No reviewers were assigned")
@@ -45,87 +42,106 @@ jira_id = reviewer_jira_info["jira_id"]
 auth = HTTPBasicAuth(JIRA_API_EMAIL, JIRA_API_TOKEN)
 BASE_URL = "https://sids-test-env.atlassian.net"
 
-issue_url = BASE_URL + "/rest/api/3/issue"
+# Check if issue already exists
+search_issue_url = BASE_URL + "/rest/api/3/search"
 
-headers = {
-   "Accept": "application/json"
+params = {
+   "jql": f'project%3D{project_key}%20AND%20description%20~%20"{pr_url}"'
 }
-
-request_body = {
-    "fields": {
-       "project":
-       {
-          "key": project_key
-       },
-       "summary": pr_body,
-       "description": {
-           "type": "doc",
-           "version": 1,
-           "content": [
-               {
-                   "type": "paragraph",
-                   "content": [
-                       {
-                           "type": "text",
-                           "text": jira_description
-                       }
-                   ]
-               }
-           ]
-       }
-       ,
-       "issuetype": {
-          "name": "Task"
-       },
-       "assignee": {
-          "id": jira_id
-       },
-       "reporter": {
-          "id": jira_id
-       },
-       "priority": {
-          "name": "Low"
-       }
-   }
-}
-
-response = requests.request(
-   "POST",
-   issue_url,
-   headers=headers,
-   auth=auth,
-   json=request_body
-)
-
-print(response.text)
-issue_key = json.loads(response.text)["key"]
-
-transitions_url = BASE_URL + f"/rest/api/3/issue/{issue_key}/transitions"
 
 response = requests.request(
    "GET",
-   transitions_url,
+   search_issue_url,
    auth=auth,
+   params=params
 )
+print(response.text)
+searched_issues = response.json()
 
-transitions_response = json.loads(response.text)
-transitions = transitions_response["transitions"]
-for transition in transitions:
-   if transition["name"] == "Triage":
-      triage_id = transition["id"]
+if searched_issues["total"] == 0:
+   # Create the issue
+   issue_url = BASE_URL + "/rest/api/3/issue"
 
-if triage_id:
-   update_json = {
-      "transition": {
-         "id": triage_id
+   headers = {
+      "Accept": "application/json"
+   }
+
+   request_body = {
+      "fields": {
+         "project":
+         {
+            "key": project_key
+         },
+         "summary": pr_body,
+         "description": {
+            "type": "doc",
+            "version": 1,
+            "content": [
+                  {
+                     "type": "paragraph",
+                     "content": [
+                        {
+                              "type": "text",
+                              "text": jira_description
+                        }
+                     ]
+                  }
+            ]
+         }
+         ,
+         "issuetype": {
+            "name": "Task"
+         },
+         "assignee": {
+            "id": jira_id
+         },
+         "reporter": {
+            "id": jira_id
+         },
+         "priority": {
+            "name": "Low"
+         }
       }
    }
 
    response = requests.request(
-     "POST",
-     transitions_url,
-     auth=auth,
-     json=update_json
+      "POST",
+      issue_url,
+      headers=headers,
+      auth=auth,
+      json=request_body
    )
-else: 
-  print("Triage was not found in transitions, doing nothing")
+
+   print(response.text)
+   issue_key = response.json()["key"]
+
+   # Place issue in triage column
+   transitions_url = BASE_URL + f"/rest/api/3/issue/{issue_key}/transitions"
+
+   response = requests.request(
+      "GET",
+      transitions_url,
+      auth=auth,
+   )
+
+   transitions_response = response.json()
+   transitions = transitions_response["transitions"]
+   for transition in transitions:
+      if transition["name"] == "Triage":
+         triage_id = transition["id"]
+
+   if triage_id:
+      update_json = {
+         "transition": {
+            "id": triage_id
+         }
+      }
+
+      response = requests.request(
+      "POST",
+      transitions_url,
+      auth=auth,
+      json=update_json
+      )
+   else: 
+      print("Triage was not found in transitions, doing nothing")
