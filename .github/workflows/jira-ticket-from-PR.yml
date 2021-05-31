@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   pull_request:
-    branches: [ main test-branch ]
+    branches: [ main ]
     types: [ review_requested ]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -16,7 +16,7 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    if: contains( github.event.pull_request.labels.*.name, 'dependencies' )
+    if: contains( github.event.pull_request.labels.*.name, '📦 dependencies' )
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
