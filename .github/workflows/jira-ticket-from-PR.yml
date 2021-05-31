@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   pull_request:
-    branches: [ main ]
+    branches: [ main test-branch ]
     types: [ review_requested ]
 
   # Allows you to run this workflow manually from the Actions tab
