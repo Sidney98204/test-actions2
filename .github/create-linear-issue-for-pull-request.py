@@ -6,6 +6,7 @@ import os
 import argparse
 
 parser = argparse.ArgumentParser()
+# TODO: Tell Ilya to create a new secret for LINEAR API TOKEN
 parser.add_argument("-p", "--password", required=True)
 parser.add_argument("-e", "--event", required=True)
 
@@ -24,6 +25,7 @@ reviewers = event_obj["pull_request"]["requested_reviewers"]
 pr_title = event_obj["pull_request"]["title"]
 pr_number = event_obj["pull_request"]["number"]
 
+# TODO: Fix URL for front end repo
 pr_url = f"https://github.com/Sidney98204/test-actions2/pull/{pr_number}"
 issue_title = f"Review dependencies pull request: {pr_title}"
 issue_description = f"{pr_url}\n{pr_title}"
@@ -31,7 +33,9 @@ issue_description = f"{pr_url}\n{pr_title}"
 if len(reviewers) == 0:
     raise Exception("No reviewers were assigned")
 
+# TODO: Do we potentially wanna loop over the reviewers? 
 reviewer = reviewers[0]["login"]
+# TODO: point this to the right file
 with open(".github/reviewers-linear-info-TEST.json") as file:
     reviewers_info = json.loads(file.read())
 reviewer_info = reviewers_info[reviewer]
@@ -66,14 +70,19 @@ query = """query {{
 
 response = requests.post('https://api.linear.app/graphql', headers=headers, json={"query": query})
 print(response.text)
+# TODO: remove print statement
 
 r = response.json()
 issues = r["data"]["team"]["issues"]["nodes"]
+issue_exists = False
 for issue in issues:
-  print(issue)
   issue_description = issue["description"]
-  if issue_description and pr_url not in issue_description:
-    print("DUPLICATE ISSUE, NOT CREATING A NEW ONE")
+  if issue_description and pr_url in issue_description:
+    issue_exists = True
+
+if issue_exists:
+    print("Issue already exists")
+else: 
     # Create issue
     query = """mutation {{
     issueCreate(
@@ -91,10 +100,8 @@ for issue in issues:
     }}
     }}""".format(issue_description=issue_description, team_id=project_key)
     response = requests.post('https://api.linear.app/graphql', headers=headers, json={"query": query})
-    print(response.json())
     # grab issue id
     issue_id = response.json()["data"]["issueCreate"]["issue"]["id"]
-    print(issue_id)
     
     # get workflow states
     query = """query {
