@@ -33,113 +33,112 @@ issue_description = f"{pr_url}\n{pr_title}"
 if len(reviewers) == 0:
     raise Exception("No reviewers were assigned")
 
-# TODO: Do we potentially wanna loop over the reviewers? 
-reviewer = reviewers[0]["login"]
 # TODO: point this to the right file
 with open(".github/reviewers-linear-info-TEST.json") as file:
     reviewers_info = json.loads(file.read())
-reviewer_info = reviewers_info[reviewer]
-project_key = reviewer_info["project_key"]
-reviewer_id = reviewer_info["linear_id"]
 
-headers = {
-    'Content-Type': 'application/json',
-    'Authorization': LINEAR_API_TOKEN,
-}
+for reviewer_info in reviewers:
+    reviewer = reviewer_info["login"]
+    reviewer_info = reviewers_info[reviewer]
+    project_key = reviewer_info["project_key"]
+    reviewer_id = reviewer_info["linear_id"]
 
-# Check existing issues to see if this issue has already been created
-query = """query {{
-  team(id: "{team_id}") {{
-    id
-    name
-    issues {{
-      nodes {{
-        id
-        title
-        description
-        assignee {{
-          id
-          name
-        }}
-        createdAt
-        archivedAt
-      }}
-    }}
-  }}
-}}""".format(team_id=project_key)
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': LINEAR_API_TOKEN,
+    }
 
-response = requests.post('https://api.linear.app/graphql', headers=headers, json={"query": query})
-print(response.text)
-# TODO: remove print statement
-
-r = response.json()
-issues = r["data"]["team"]["issues"]["nodes"]
-issue_exists = False
-for issue in issues:
-  issue_description = issue["description"]
-  if issue_description and pr_url in issue_description:
-    issue_exists = True
-
-if issue_exists:
-    print("Issue already exists")
-else: 
-    # Create issue
-    query = """mutation {{
-    issueCreate(
-        input: {{
-        title: "Review dependencies pull request"
-        description: "{issue_description}"
-        teamId: "{team_id}"
-        }}
-    ) {{
-        success
-        issue {{
-        id
-        title
-        }}
-    }}
-    }}""".format(issue_description=issue_description, team_id=project_key)
-    response = requests.post('https://api.linear.app/graphql', headers=headers, json={"query": query})
-    # grab issue id
-    issue_id = response.json()["data"]["issueCreate"]["issue"]["id"]
-    
-    # get workflow states
-    query = """query {
-    workflowStates {
-        nodes {
+    # Check existing issues to see if this issue has already been created
+    query = """query {{
+    team(id: "{team_id}") {{
         id
         name
-        }
-    }
-    }"""
-    response = requests.post('https://api.linear.app/graphql', headers=headers, json={"query": query})
-    states = response.json()["data"]["workflowStates"]["nodes"]
-    for state in states:
-        if state["name"] == "Todo":
-            state_id = state["id"]
+        issues {{
+        nodes {{
+            id
+            title
+            description
+            assignee {{
+            id
+            name
+            }}
+            createdAt
+            archivedAt
+        }}
+        }}
+    }}
+    }}""".format(team_id=project_key)
 
-    # Transition issue into To Do
-    if state_id:
+    response = requests.post('https://api.linear.app/graphql', headers=headers, json={"query": query})
+    print(response.text)
+    # TODO: remove print statement
+
+    r = response.json()
+    issues = r["data"]["team"]["issues"]["nodes"]
+    issue_exists = False
+    for issue in issues:
+        issue_description = issue["description"]
+        if issue_description and pr_url in issue_description:
+            issue_exists = True
+
+    if issue_exists:
+        print("Issue already exists")
+    else: 
+        # Create issue
         query = """mutation {{
-        issueUpdate(
-            id: "{issue_id}",
+        issueCreate(
             input: {{
-            title: "I AM THE UPDATED PULL REQUEST"
-            stateId: "{state_id}",
+            title: "Review dependencies pull request"
+            description: "{issue_description}"
+            teamId: "{team_id}"
             }}
         ) {{
             success
             issue {{
             id
             title
-            state {{
-                id
-                name
-            }}
             }}
         }}
-        }}""".format(issue_id=issue_id, state_id=state_id)
+        }}""".format(issue_description=issue_description, team_id=project_key)
         response = requests.post('https://api.linear.app/graphql', headers=headers, json={"query": query})
-        print(response.text)
-    else:
-        print("No Todo state found, not transitioning issue")
+        # grab issue id
+        issue_id = response.json()["data"]["issueCreate"]["issue"]["id"]
+        
+        # get workflow states
+        query = """query {
+        workflowStates {
+            nodes {
+            id
+            name
+            }
+        }
+        }"""
+        response = requests.post('https://api.linear.app/graphql', headers=headers, json={"query": query})
+        states = response.json()["data"]["workflowStates"]["nodes"]
+        for state in states:
+            if state["name"] == "Todo":
+                state_id = state["id"]
+
+        # Transition issue into To Do
+        if state_id:
+            query = """mutation {{
+            issueUpdate(
+                id: "{issue_id}",
+                input: {{
+                stateId: "{state_id}",
+                }}
+            ) {{
+                success
+                issue {{
+                id
+                title
+                state {{
+                    id
+                    name
+                }}
+                }}
+            }}
+            }}""".format(issue_id=issue_id, state_id=state_id)
+            response = requests.post('https://api.linear.app/graphql', headers=headers, json={"query": query})
+        else:
+            print("No Todo state found, not transitioning issue")
