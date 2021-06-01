@@ -72,7 +72,7 @@ issues = r["data"]["team"]["issues"]["nodes"]
 for issue in issues:
   print(issue)
   issue_description = issue["description"]
-  if issue_description and pr_url in issue_description:
+  if issue_description and pr_url not in issue_description:
     print("DUPLICATE ISSUE, NOT CREATING A NEW ONE")
     # Create issue
     query = """mutation {{
