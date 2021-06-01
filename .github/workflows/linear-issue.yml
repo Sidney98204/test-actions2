@@ -40,7 +40,7 @@ jobs:
           then
             python ./.github/py_script.py -e $GITHUB_EVENT_PATH -u $JIRA_API_EMAIL -p $JIRA_API_TOKEN
           else 
-            python ./.github/create-linear-issue-for-pull-request.py -e $GITHUB_EVENT_PATH -p $JIRA_API_TOKEN
+            python ./.github/create-linear-issue-for-pull-request.py -e $GITHUB_EVENT_PATH -p $LINEAR_API_TOKEN
           fi
         env: 
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
