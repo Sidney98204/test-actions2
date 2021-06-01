@@ -91,6 +91,7 @@ for issue in issues:
     }}
     }}""".format(issue_description=issue_description, team_id=project_key)
     response = requests.post('https://api.linear.app/graphql', headers=headers, json={"query": query})
+    print(response.json())
     # grab issue id
     issue_id = response.json()["data"]["issueCreate"]["issue"]["id"]
     print(issue_id)
