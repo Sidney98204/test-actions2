@@ -76,8 +76,8 @@ r = response.json()
 issues = r["data"]["team"]["issues"]["nodes"]
 issue_exists = False
 for issue in issues:
-  issue_description = issue["description"]
-  if issue_description and pr_url in issue_description:
+
+  if issue["description"] and pr_url in issue["description"]:
     issue_exists = True
 
 if issue_exists:
@@ -104,43 +104,43 @@ else:
     # grab issue id
     issue_id = response.json()["data"]["issueCreate"]["issue"]["id"]
     
-    # # get workflow states
-    # query = """query {
-    # workflowStates {
-    #     nodes {
-    #     id
-    #     name
-    #     }
-    # }
-    # }"""
-    # response = requests.post('https://api.linear.app/graphql', headers=headers, json={"query": query})
-    # states = response.json()["data"]["workflowStates"]["nodes"]
-    # for state in states:
-    #     if state["name"] == "Todo":
-    #         state_id = state["id"]
+    # get workflow states
+    query = """query {
+    workflowStates {
+        nodes {
+        id
+        name
+        }
+    }
+    }"""
+    response = requests.post('https://api.linear.app/graphql', headers=headers, json={"query": query})
+    states = response.json()["data"]["workflowStates"]["nodes"]
+    for state in states:
+        if state["name"] == "Todo":
+            state_id = state["id"]
 
-    # # Transition issue into To Do
-    # if state_id:
-    #     query = """mutation {{
-    #     issueUpdate(
-    #         id: "{issue_id}",
-    #         input: {{
-    #         stateId: "{state_id}"
-    #         description: "{issue_description}"
-    #         }}
-    #     ) {{
-    #         success
-    #         issue {{
-    #         id
-    #         title
-    #         state {{
-    #             id
-    #             name
-    #         }}
-    #         }}
-    #     }}
-    #     }}""".format(issue_id=issue_id, state_id=state_id)
-    #     response = requests.post('https://api.linear.app/graphql', headers=headers, json={"query": query})
-    #     print(f"TRANSITION ISSUE RESPONSE: {response.json()}")
-    # else:
-    #     print("No Todo state found, not transitioning issue")
+    # Transition issue into To Do
+    if state_id:
+        query = """mutation {{
+        issueUpdate(
+            id: "{issue_id}",
+            input: {{
+            stateId: "{state_id}"
+            description: "{issue_description}"
+            }}
+        ) {{
+            success
+            issue {{
+            id
+            title
+            state {{
+                id
+                name
+            }}
+            }}
+        }}
+        }}""".format(issue_id=issue_id, state_id=state_id)
+        response = requests.post('https://api.linear.app/graphql', headers=headers, json={"query": query})
+        print(f"TRANSITION ISSUE RESPONSE: {response.json()}")
+    else:
+        print("No Todo state found, not transitioning issue")
