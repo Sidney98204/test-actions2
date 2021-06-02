@@ -76,8 +76,8 @@ r = response.json()
 issues = r["data"]["team"]["issues"]["nodes"]
 issue_exists = False
 for issue in issues:
-
-  if issue["description"] and pr_url in issue["description"]:
+  issue_description = issue["description"]
+  if issue_description and pr_url in issue_description:
     issue_exists = True
 
 if issue_exists:
@@ -125,8 +125,7 @@ else:
         issueUpdate(
             id: "{issue_id}",
             input: {{
-            stateId: "{state_id}"
-            description: "{issue_description}"
+            stateId: "{state_id}",
             }}
         ) {{
             success
