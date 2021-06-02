@@ -126,6 +126,7 @@ else:
             id: "{issue_id}",
             input: {{
             stateId: "{state_id}",
+            description: "{issue_description}"
             }}
         ) {{
             success
