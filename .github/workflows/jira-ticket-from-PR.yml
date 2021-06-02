@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Create Issue for Dependencies Pull Request
 
 # Controls when the action will run. 
 on:
@@ -17,14 +17,18 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     if: contains( github.event.pull_request.labels.*.name, '📦 dependencies' )
+    env: 
+      CONFIG_FILE: .github/reviewers-info.json
+      GITHUB_USERNAME: ${{ secrets.DEPENDABOT_GITHUB_USER }}
+      GITHUB_TOKEN: ${{ secrets.DEPENDABOT_GITHUB_TOKEN }}
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Print Github Event
-        run: cat $GITHUB_EVENT_PATH
+      - name: Print event
+        run: echo $GITHUB_EVENT_PATH
 
       - uses: actions/checkout@v2
         
@@ -34,9 +38,9 @@ jobs:
       - name: install requests
         run: pip install requests
         
-      - name: Run Python Script
+      - name: Run Python Jira Script
         run: |
-          python ./.github/py_script.py -e $GITHUB_EVENT_PATH -u $JIRA_API_EMAIL -p $JIRA_API_TOKEN
+          python .github/create-jira-ticket.py -e $GITHUB_EVENT_PATH -u $JIRA_API_EMAIL -p $JIRA_API_TOKEN -c ${{ env.CONFIG_FILE }} -gu ${{ env.GITHUB_USERNAME }} -gp ${{ env.GITHUB_TOKEN }}
         env: 
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
           JIRA_API_EMAIL: ${{ secrets.JIRA_API_EMAIL }}

@@ -17,12 +17,17 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     if: contains( github.event.pull_request.labels.*.name, '📦 dependencies' )
+    env: 
+      GITHUB_API_TOKEN: "SPAGHET"
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Print Env Var
+        run: echo ${{ env.GITHUB_API_TOKEN }}
+        
       - name: Print Github Event
         run: cat $GITHUB_EVENT_PATH
 
