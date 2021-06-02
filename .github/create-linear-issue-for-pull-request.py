@@ -76,8 +76,7 @@ r = response.json()
 issues = r["data"]["team"]["issues"]["nodes"]
 issue_exists = False
 for issue in issues:
-  issue_description = issue["description"]
-  if issue_description and pr_url in issue_description:
+  if issue["description"] and pr_url in issue["description"]:
     issue_exists = True
 
 if issue_exists:
