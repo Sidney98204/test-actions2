@@ -89,7 +89,7 @@ else:
         title: "Review dependencies pull request"
         description: "{issue_description}"
         teamId: "{team_id}"
-        assigneeId: "{reviewer_id}
+        assigneeId: "{reviewer_id}"
         }}
     ) {{
         success
