@@ -27,7 +27,7 @@ pr_title = event_obj["pull_request"]["title"]
 pr_number = event_obj["pull_request"]["number"]
 
 pr_url = f"https://github.com/Sidney98204/test-actions2/pull/{pr_number}"
-jira_title = f"Review dependency pull request: {pr_title}"
+jira_title = f"Review dependencies pull request: {pr_title}"
 jira_description = f"{pr_url}\n{pr_title}"
 
 if len(reviewers) == 0:
