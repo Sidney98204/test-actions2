@@ -39,7 +39,7 @@ jobs:
           if [ $WHICH == "JIRA" ]
           then
             python ./.github/py_script.py -e $GITHUB_EVENT_PATH -u $JIRA_API_EMAIL -p $JIRA_API_TOKEN
-          else 
+          elif [ $WHICH == "LINEAR" ]
             python ./.github/create-linear-issue-for-pull-request.py -e $GITHUB_EVENT_PATH -p $LINEAR_API_TOKEN
           fi
         env: 

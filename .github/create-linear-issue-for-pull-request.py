@@ -28,7 +28,7 @@ pr_number = event_obj["pull_request"]["number"]
 # TODO: Fix URL for front end repo
 pr_url = f"https://github.com/Sidney98204/test-actions2/pull/{pr_number}"
 issue_title = f"Review dependencies pull request: {pr_title}"
-issue_description = f"{pr_url}: {pr_title}"
+issue_description = f"{pr_title}: {pr_url}"
 
 if len(reviewers) == 0:
     raise Exception("No reviewers were assigned")
