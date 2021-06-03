@@ -96,10 +96,18 @@ for reviewer_info in reviewers:
         }"""
         response = requests.post('https://api.linear.app/graphql', headers=headers, json={"query": query})
         states = response.json()["data"]["workflowStates"]["nodes"]
+        # order of preference, the larger the better
+        states_to_preference = {"Inbox": 2, "Accepted": 1, "Todo": 1, "To do": 1, "Backlog": 0, "": -1}
+        state_name = ""
+        state_id = ""
         for state in states:
-            if state["name"] == "Todo" and state["team"]["id"] == project_key:
+            if (state["name"] in states_to_preference.keys() and 
+                    state["team"]["id"] == project_key and 
+                    states_to_preference.get(state["name"], -1) > states_to_preference[state_name]):
                 state_id = state["id"]
-                
+                state_name = state["name"]
+
+
         # Create issue
         query = """mutation {{
         issueCreate(
