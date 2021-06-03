@@ -117,7 +117,7 @@ for reviewer_info in reviewers:
             title
             }}
         }}
-        }}""".format(issue_description=issue_description, team_id=project_key, reviewer_id=reviewer_id)
+        }}""".format(issue_description=issue_description, team_id=project_key, reviewer_id=reviewer_id, state_id=state_id)
         response = requests.post('https://api.linear.app/graphql', headers=headers, json={"query": query})
         print(f"CREATE ISSUE RESPONSE: {response.json()}")
         # grab issue id
