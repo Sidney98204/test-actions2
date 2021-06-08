@@ -19,6 +19,8 @@ jobs:
     if: contains( github.event.pull_request.labels.*.name, '📦 dependencies' )
     env: 
       CONFIG_FILE: .github/reviewers-info.json
+      GH_USERNAME: ${{ secrets.DEPENDABOT_GITHUB_USER }}
+      GH_TOKEN: ${{ secrets.DEPENDABOT_GITHUB_TOKEN }}
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -39,7 +41,5 @@ jobs:
         env: 
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
           JIRA_API_EMAIL: ${{ secrets.JIRA_API_EMAIL }}
-          GH_USERNAME: ${{ secrets.DEPENDABOT_GITHUB_USERNAME }}
-          GH_TOKEN: ${{ secrets.DEPENDABOT_GITHUB_TOKEN }}
 
       
