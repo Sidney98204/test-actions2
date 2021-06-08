@@ -19,7 +19,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-u", "--username", required=True)
 parser.add_argument("-p", "--password", required=True)
 parser.add_argument("-e", "--event", required=True)
-parser.add_argument("-config", "--configuration", required=True)
+parser.add_argument("-c", "--configuration", required=True)
 parser.add_argument("-m", "--github_username", required=True)
 parser.add_argument("-n", "--github_password", required=True)
 

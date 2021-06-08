@@ -37,7 +37,7 @@ jobs:
         
       - name: Run Python Jira Script
         run: |
-          python .github/create-jira-ticket.py -e $GITHUB_EVENT_PATH -u $JIRA_API_EMAIL -p $JIRA_API_TOKEN -config ${{ env.CONFIG_FILE }} --github_username ${{ env.GITHUB_USERNAME}} --github_password ${{ env.GITHUB_PASSWORD }}
+          python .github/create-jira-ticket.py -e $GITHUB_EVENT_PATH -u $JIRA_API_EMAIL -p $JIRA_API_TOKEN -c ${{ env.CONFIG_FILE }} --github_username ${{ env.GITHUB_USERNAME}} --github_password ${{ env.GITHUB_PASSWORD }}
         env: 
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
           JIRA_API_EMAIL: ${{ secrets.JIRA_API_EMAIL }}
