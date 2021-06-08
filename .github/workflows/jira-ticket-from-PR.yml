@@ -6,7 +6,7 @@ name: Create Issue for Dependencies Pull Request
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   pull_request:
-    branches: [ next ]
+    branches: [ main ]
     types: [ review_requested ]
 
   # Allows you to run this workflow manually from the Actions tab
