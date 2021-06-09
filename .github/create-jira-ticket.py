@@ -19,7 +19,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-u", "--username", required=True)
 parser.add_argument("-p", "--password", required=True)
 parser.add_argument("-e", "--event", required=True)
-parser.add_argument("-config", "--configuration", required=True)
+parser.add_argument("-c", "--configuration", required=True)
 parser.add_argument("-gu", "--github_username", required=True)
 parser.add_argument("-gp", "--github_password", required=True)
 
@@ -31,6 +31,8 @@ event_path = io_args.event
 config_filepath = io_args.configuration
 github_user = io_args.github_username
 github_password = io_args.github_password
+print(github_user)
+print(github_password)
 
 pr_info = get_pull_request_info(event_path)
 

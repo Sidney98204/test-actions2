@@ -33,6 +33,7 @@ def fetch_reviewers_info(file_path, github_auth):
         f'https://api.github.com/repos/Sidney98204/test-actions2/contents/{file_path}', 
         headers=headers, 
         auth=github_auth)
+    print(response.json())
     contents = response.json()["content"]
     decoded = base64.b64decode(contents)
     all_reviewers_info = json.loads(decoded)
