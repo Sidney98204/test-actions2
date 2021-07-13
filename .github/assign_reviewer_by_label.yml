@@ -1,0 +1,9 @@
+labels:
+  dependencies:
+    reviewers:
+      - Sidney9820
+      - Sidney98204
+      - throwaway-account-98204
+    random: true
+    numReviewsPerReviewer: 1
+
