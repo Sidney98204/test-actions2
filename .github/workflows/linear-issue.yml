@@ -9,10 +9,10 @@ on:
     branches: [ main ]
     types: [ review_requested ]
     
-  # workflow_run:
-  #   workflows: ["Assign Reviewer for Dependabot PRs"]
-    # types:
-      # - completed
+  workflow_run:
+    workflows: ["Assign Reviewer for Dependabot PRs"]
+    types:
+      - completed
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -21,7 +21,7 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    if: contains( github.event.pull_request.labels.*.name, '📦 dependencies' )
+    # if: contains( github.event.pull_request.labels.*.name, '📦 dependencies' )
     env: 
       GITHUB_API_TOKEN: "SPAGHET"
     # The type of runner that the job will run on
