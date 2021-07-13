@@ -1,0 +1,18 @@
+{"data":{"teams":{"nodes":[{"id":"33f2ca17-d697-4bd8-ad43-7645c2ad10db","name":"IT"},{"id":"712b66ed-6539-41e9-9ef4-187360e39455","name":"Frontend Chapter"},{"id":"e0247eef-9b97-466d-8b06-d3fd787a77a3","name":"Customer Configuration"},{"id":"2af723c0-8e9b-46a1-a9fe-37259b2bdff8","name":"Engineering Management"},{"id":"d11005ee-1e65-43bf-b09e-03afb88569de","name":"Ditto"},{"id":"434d57ed-cf6a-4310-b63c-e111b38f6397","name":"Test Automation"},{"id":"798aa260-cc13-408e-9a79-27429361ce14","name":"Mobile"},{"id":"f769b945-97a3-4593-bde3-b9d1d38a6763","name":"Cheque Yo'self"},{"id":"0a6ffe25-25ec-46f6-b986-7ed28414994f","name":"Spend Capture"},{"id":"1c0e55f5-b3b7-4e37-93bb-fded320bf502","name":"Test Team 2"},{"id":"5c8bcf56-121c-4d11-b99a-bbf225c9f6f0","name":"Test Team 1"},{"id":"d572e9ee-feb2-4ee0-892e-be55a18f66d7","name":"Platform"},{"id":"5daea5a8-5dc3-4ca7-888a-dd80f6f0134f","name":"Product Management"},{"id":"2d0da3b2-5b47-4077-ada1-907fc1e63de5","name":"Design"},{"id":"c831946c-b70a-4dee-b42d-a58dddf4ed53","name":"Atom"}]}}}
+
+{'data': {'teams': {'nodes': [
+    {'id': '33f2ca17-d697-4bd8-ad43-7645c2ad10db', 'name': 'IT'}, 
+    {'id': '712b66ed-6539-41e9-9ef4-187360e39455', 'name': 'Frontend Chapter'}, 
+    {'id': 'e0247eef-9b97-466d-8b06-d3fd787a77a3', 'name': 'Customer Configuration'}, 
+    {'id': '2af723c0-8e9b-46a1-a9fe-37259b2bdff8', 'name': 'Engineering Management'}, 
+    {'id': 'd11005ee-1e65-43bf-b09e-03afb88569de', 'name': 'Ditto'}, 
+    {'id': '434d57ed-cf6a-4310-b63c-e111b38f6397', 'name': 'Test Automation'}, 
+    {'id': '798aa260-cc13-408e-9a79-27429361ce14', 'name': 'Mobile'}, 
+    {'id': 'f769b945-97a3-4593-bde3-b9d1d38a6763', 'name': "Cheque Yo'self"}, 
+    {'id': '0a6ffe25-25ec-46f6-b986-7ed28414994f', 'name': 'Spend Capture'}, 
+    {'id': '1c0e55f5-b3b7-4e37-93bb-fded320bf502', 'name': 'Test Team 2'}, 
+    {'id': '5c8bcf56-121c-4d11-b99a-bbf225c9f6f0', 'name': 'Test Team 1'}, 
+    {'id': 'd572e9ee-feb2-4ee0-892e-be55a18f66d7', 'name': 'Platform'}, 
+    {'id': '5daea5a8-5dc3-4ca7-888a-dd80f6f0134f', 'name': 'Product Management'}, 
+    {'id': '2d0da3b2-5b47-4077-ada1-907fc1e63de5', 'name': 'Design'}, 
+    {'id': 'c831946c-b70a-4dee-b42d-a58dddf4ed53', 'name': 'Atom'}]}}}

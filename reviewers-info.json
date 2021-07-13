@@ -1,0 +1,112 @@
+{
+    "reynaldot": {
+        "jira": {
+            "project_key": "",
+            "jira_id": ""
+        },
+        "linear": {
+            "project_key": "0a6ffe25-25ec-46f6-b986-7ed28414994f",
+            "linear_id": "e8928a02-05fe-49c3-ac54-2995836638be"
+        }
+    },
+    "nav": {
+        "jira": {
+            "project_key": "",
+            "jira_id": ""
+        },
+        "linear": {
+            "project_key": "d572e9ee-feb2-4ee0-892e-be55a18f66d7",
+            "linear_id": "b8bedbee-37bb-43ce-8daf-5104d69a55ad"
+        }
+    },
+    "CoffeeJack": {
+        "jira": {
+            "project_key": "",
+            "jira_id": ""
+        },
+        "linear": {
+            "project_key": "d572e9ee-feb2-4ee0-892e-be55a18f66d7",
+            "linear_id": "7d627da1-115a-4884-b143-c3d369e258de"
+        }
+    },
+    "tedhuang": {
+        "jira": {
+            "project_key": "",
+            "jira_id": ""
+        },
+        "linear": {
+            "project_key": "c831946c-b70a-4dee-b42d-a58dddf4ed53",
+            "linear_id": "ab9f6303-26e7-4de6-8fa7-775a9637f7b1"
+        }
+    },
+    "AndyHsiungDev": {
+        "jira": {
+            "project_key": "",
+            "jira_id": ""
+        },
+        "linear": {
+            "project_key": "0a6ffe25-25ec-46f6-b986-7ed28414994f",
+            "linear_id": "7c21e1f4-2b3f-4264-8b5e-adf7a0e18b8f"
+        }
+    },
+    "dsonic0912": {
+        "jira": {
+            "project_key": "",
+            "jira_id": ""
+        },
+        "linear": {
+            "project_key": "c831946c-b70a-4dee-b42d-a58dddf4ed53",
+            "linear_id": "6f57fb8f-43d3-4571-80a8-6398e0447b85"
+        }
+    },
+    "caliskimmer": {
+        "jira": {
+            "project_key": "",
+            "jira_id": ""
+        },
+        "linear": {
+            "project_key": "c831946c-b70a-4dee-b42d-a58dddf4ed53",
+            "linear_id": "7b1b90aa-3161-4340-b3f2-13bf4f1c0167"
+        }
+    },
+    "mabalaski": {
+        "jira": {
+            "project_key": "",
+            "jira_id": ""
+        },
+        "linear": {
+            "project_key": "d11005ee-1e65-43bf-b09e-03afb88569de",
+            "linear_id": "86da0887-d994-4c2b-abc3-1555c68fefaf"
+        }
+    },
+    "enochng1": {
+        "jira": {
+            "project_key": "",
+            "jira_id": ""
+        },
+        "linear": {
+            "project_key": "798aa260-cc13-408e-9a79-27429361ce14",
+            "linear_id": "446b5b17-4ec8-452d-a2db-c4250548c72a"
+        }
+    },
+    "JustinTom": {
+        "jira": {
+            "project_key": "",
+            "jira_id": ""
+        },
+        "linear": {
+            "project_key": "d11005ee-1e65-43bf-b09e-03afb88569de",
+            "linear_id": "d33a5930-5cb5-43b3-9578-e8fa242675bb"
+        }
+    },
+    "kenzyop": {
+        "jira": {
+            "project_key": "",
+            "jira_id": ""
+        },
+        "linear": {
+            "project_key": "f769b945-97a3-4593-bde3-b9d1d38a6763",
+            "linear_id": "cd5875db-14d6-464b-b8a9-69c90f633c2c"
+        }
+    }
+}
