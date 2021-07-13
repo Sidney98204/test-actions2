@@ -8,6 +8,11 @@ on:
   pull_request:
     branches: [ main ]
     types: [ review_requested ]
+    
+  workflow_run:
+    workflows: ["Assign Reviewer for Dependabot PRs"]
+    types:
+      - completed
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
