@@ -6,8 +6,13 @@ name: Create Issue for Dependencies Pull Request
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   pull_request:
-    branches: [ next ]
+    branches: [ main ]
     types: [ review_requested ]
+  
+  workflow_run:
+      workflows: ["Assign Reviewer for Dependabot PRs"]
+      types:
+      - completed
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -31,6 +36,9 @@ jobs:
         
       - name: Setup Python
         uses: actions/setup-python@v2
+
+      - name: Print event
+        run: cat $GITHUB_EVENT_PATH
         
       - name: install requests
         run: pip install requests
